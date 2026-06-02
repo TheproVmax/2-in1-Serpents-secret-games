@@ -5,51 +5,94 @@ const choices = document.getElementById("choices");
 const meter = document.getElementById("meter");
 
 let curiosity = 0;
+let trust = 0;
 let current = 0;
 
 const worlds = [
-  "A low hiss moves through the World of Serpents.",
-  "The space between worlds tightens around you.",
-  "Shadows remember things you do not.",
-  "Something ancient is watching.",
-  "This world feels uncomfortably familiar."
+  {
+    text: "The World of Serpents coils around your thoughts.",
+    choices: [
+      { label: "Listen to the whisper", c: 2, t: 0 },
+      { label: "Ignore it", c: 0, t: 1 }
+    ]
+  },
+  {
+    text: "The space between worlds bends when you breathe.",
+    choices: [
+      { label: "Step forward anyway", c: 2, t: -1 },
+      { label: "Wait and observe", c: 1, t: 1 }
+    ]
+  },
+  {
+    text: "Shadows gather, familiar but unfinished.",
+    choices: [
+      { label: "Ask who they are", c: 1, t: 0 },
+      { label: "Turn away", c: 0, t: 1 }
+    ]
+  },
+  {
+    text: "Something ancient is measuring you.",
+    choices: [
+      { label: "Meet its gaze", c: 2, t: -1 },
+      { label: "Lower your eyes", c: 0, t: 1 }
+    ]
+  },
+  {
+    text: "The Mortal World remembers your name.",
+    choices: [
+      { label: "Accept it", c: 1, t: 1 },
+      { label: "Deny it", c: 2, t: -1 }
+    ]
+  }
 ];
 
 function render() {
   if (current >= worlds.length) {
-    story.textContent = "You have reached the end of the known worlds.";
-    choices.innerHTML = "";
+    ending();
     return;
   }
 
-  story.textContent = worlds[current];
+  story.textContent = worlds[current].text;
   choices.innerHTML = "";
 
-  addChoice("Look closer", 2);
-  addChoice("Move carefully", 1);
-  addChoice("Step away", 0);
+  worlds[current].choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.textContent = choice.label;
+    btn.onclick = () => pick(choice);
+    choices.appendChild(btn);
+  });
+
+  meter.textContent = `Curiosity: ${curiosity} | Trust: ${trust}`;
 }
 
-function addChoice(text, risk) {
-  const btn = document.createElement("button");
-  btn.textContent = text;
-  btn.onclick = () => choose(risk);
-  choices.appendChild(btn);
-}
-
-function choose(risk) {
-  curiosity += risk;
+function pick(choice) {
+  curiosity += choice.c;
+  trust += choice.t;
   current++;
 
   if (curiosity >= 7) {
     story.textContent =
-      "Something shifts behind you. You looked too deeply.";
+      "You went too far. Some knowledge does not return you unchanged.";
     choices.innerHTML = "";
     return;
   }
 
-  meter.textContent = `Curiosity: ${curiosity}`;
   render();
+}
+
+function ending() {
+  choices.innerHTML = "";
+
+  if (trust >= 3 && curiosity < 6) {
+    story.textContent =
+      "You pass between worlds carrying truth, not hunger.";
+  } else if (curiosity >= 5) {
+    story.textContent =
+      "You leave knowing much, understood by little.";
+  } else {
+    story.textContent =
+      "You return unchanged, though something followed you.";
+  }
 }
 
 render();

@@ -3,22 +3,30 @@
 const maze = document.getElementById("maze");
 const statusText = document.getElementById("status");
 
-/* ---- MAZE SIZE ---- */
-const size = 11;        // BIGGER GRID
-const cellSize = 52;    // BIGGER CELLS
-
-let player = { x: 0, y: 0 };
-let sigil = { x: 8, y: 8 };
-let exit = { x: 10, y: 10 };
+let level = 1;
+let size = 9;
+let cellSize = 52;
 let steps = 0;
 
-/* ---- MAZE STYLING ---- */
-maze.style.gridTemplateColumns = `repeat(${size}, ${cellSize}px)`;
-maze.style.border = "2px solid #3a2a18";
-maze.style.padding = "6px";
-maze.style.backgroundColor = "#1a120b";
+let player, sigil, exit;
 
-/* ---- DRAW MAZE ---- */
+function setupLevel() {
+  steps = 0;
+  size = 7 + level * 2;
+
+  player = { x: 0, y: 0 };
+  sigil = { x: size - 3, y: size - 3 };
+  exit = { x: size - 1, y: size - 1 };
+
+  maze.style.gridTemplateColumns = `repeat(${size}, ${cellSize}px)`;
+  maze.style.border = "2px solid #3a2a18";
+  maze.style.padding = "6px";
+  maze.style.backgroundColor = "#1a120b";
+
+  statusText.textContent = `Labyrinth Level ${level}`;
+  draw();
+}
+
 function draw() {
   maze.innerHTML = "";
 
@@ -52,24 +60,30 @@ function draw() {
   }
 }
 
-/* ---- MOVEMENT ---- */
 function move(dx, dy) {
-  const newX = player.x + dx;
-  const newY = player.y + dy;
+  const nx = player.x + dx;
+  const ny = player.y + dy;
 
-  if (newX < 0 || newX >= size || newY < 0 || newY >= size) return;
+  if (nx < 0 || ny < 0 || nx >= size || ny >= size) return;
 
-  player.x = newX;
-  player.y = newY;
+  player.x = nx;
+  player.y = ny;
   steps++;
 
   if (sigil && player.x === sigil.x && player.y === sigil.y) {
     sigil = null;
-    statusText.textContent = "Something unlocks elsewhere.";
+    statusText.textContent = "The maze loosens its grip.";
   }
 
   if (!sigil && player.x === exit.x && player.y === exit.y) {
-    statusText.textContent = "The air changes. You are no longer trapped.";
+    level++;
+    if (level > 4) {
+      statusText.textContent =
+        "You have passed every turning of the Labyrinth.";
+      return;
+    }
+    setupLevel();
+    return;
   }
 
   if (steps % 4 === 0 && sigil) {
@@ -80,7 +94,6 @@ function move(dx, dy) {
   draw();
 }
 
-/* ---- CONTROLS ---- */
 document.addEventListener("keydown", e => {
   if (e.key === "ArrowUp") move(0, -1);
   if (e.key === "ArrowDown") move(0, 1);
@@ -88,5 +101,4 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") move(1, 0);
 });
 
-/* ---- START ---- */
-draw();
+setupLevel();

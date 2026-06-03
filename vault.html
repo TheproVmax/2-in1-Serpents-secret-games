@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Serpent Riddle Vault</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>The Serpent Vault</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="game">
 
-<div class="container">
-  <h2>Serpent Riddle Vault</h2>
-  <p><em>Trial III: Knowledge Without Faces</em></p>
+  <h1>The Serpent Vault</h1>
+  <p class="subtitle">Not all trials require movement.</p>
 
-  <p id="riddle"></p>
-  <div id="answers"></div>
-  <p id="result"></p>
+  <div id="vault">
+    <p id="riddle"></p>
+    <div id="choices"></div>
+    <p id="feedback"></p>
+  </div>
 
-  <a href="index.html" class="back">⬅ Back</a>
-</div>
+  <a class="back-link" href="index.html">Return</a>
 
-<script src="js/vault.js"></script>
+  <script src="vault.js"></script>
 </body>
 </html>

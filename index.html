@@ -1,85 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Serpent Arcade</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle, #3b240f, #1a0f05);
-      color: gold;
-      text-align: center;
-    }
-
-    h1 {
-      margin-top: 30px;
-      font-size: 3rem;
-      text-shadow: 0 0 15px orange;
-    }
-
-    .games {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      padding: 40px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .game {
-      background: linear-gradient(145deg, #5a3a1a, #2b1608);
-      border: 2px solid gold;
-      border-radius: 16px;
-      padding: 25px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .game:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px orange;
-    }
-
-    .game h2 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-
-    .game p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>The Serpent’s Secret — Twin Trials</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="menu">
 
-  <h1>🐍 Serpent Arcade 🐍</h1>
+  <h1>The Serpent’s Secret</h1>
+  <p class="subtitle">Some truths are meant to be uncovered slowly.</p>
 
-  <div class="games">
+  <div class="menu-buttons">
+    <a href="labyrinth.html">Enter the Labyrinth</a>
+    <a href="worlds.html">The Five Worlds</a>
 
-    <div class="game" onclick="location.href='maze/index.html'">
-      <h2>🌀 Maze Escape</h2>
-      <p>Find your way through the serpent’s labyrinth.</p>
-    </div>
-
-    <div class="game" onclick="location.href='memory/index.html'">
-      <h2>🧠 Memory Match</h2>
-      <p>Test your mind with mythical symbols.</p>
-    </div>
-
-    <div class="game" onclick="location.href='trivia/index.html'">
-      <h2>📜 Trivia Trial</h2>
-      <p>Prove your knowledge of the Serpent world.</p>
-    </div>
-
-    <!-- 🔥 THIS IS THE ONE YOU WERE MISSING -->
-    <div class="game" onclick="location.href='riddle/index.html'">
-      <h2>❓ Riddle Vault</h2>
-      <p>Solve riddles to unlock ancient secrets.</p>
-    </div>
-
+    <!-- NEW GAME (added) -->
+    <a href="echoes.html">Echoes of the Serpent</a>
   </div>
+
+  <p class="footer-note">
+    An independent student project inspired by mythology and folklore.
+  </p>
 
 </body>
 </html>
